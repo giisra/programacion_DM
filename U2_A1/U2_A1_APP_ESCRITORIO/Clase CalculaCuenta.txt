@@ -5,6 +5,8 @@
  */
 package u2proyecto1;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author giisra
@@ -17,7 +19,12 @@ public class CalculaCuenta extends javax.swing.JFrame {
     public CalculaCuenta() {
         initComponents();
     }
-
+    
+    public static void lanzarMensaje(Double valor){
+    //En la siguiente línea está la magia (es lo que muestra el mensaje).
+    JOptionPane.showMessageDialog(null, "¡Hola mundo! debes"+valor);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,7 +48,7 @@ public class CalculaCuenta extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("N�mero de personas:");
+        jLabel1.setText("Número de personas:");
 
         jLabel2.setText("Porcentaje propina:");
 
@@ -66,6 +73,7 @@ public class CalculaCuenta extends javax.swing.JFrame {
             }
         });
 
+        jTextPane1.setToolTipText("Resultado");
         jScrollPane1.setViewportView(jTextPane1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -127,9 +135,13 @@ public class CalculaCuenta extends javax.swing.JFrame {
      
         Double vMonto = Double.parseDouble(jTextField1.getText().toString());
         Double vpersona = Double.parseDouble(jComboBox1.getSelectedItem().toString());                
-        Double vporcentaje = Double.parseDouble(jComboBox3.getSelectedItem().toString());
-        
-        jTextPane1.equals((vMonto/4)*(1 + (10/100))); 
+        Double vporcentaje = Double.parseDouble(jComboBox3.getSelectedItem().toString());        
+        //lanzarMensaje(vMontoS);
+        //jTextPane1.equals((vMonto/4)*(1 + (10/100))); 
+        //jTextPane1.equals(vMonto);
+        Double vResultado=((vMonto/4)*(1 + (10/100)));
+        String vResultadoS= vResultado.toString();
+        jTextPane1.setText(vResultadoS); 
         
         
     }                                        
