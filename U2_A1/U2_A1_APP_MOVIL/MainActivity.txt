@@ -1,0 +1,149 @@
+package com.example.giisra.practicau2a1;
+
+import android.net.Uri;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
+
+public class MainActivity extends AppCompatActivity {
+
+    Spinner spinnerPers, spinnerPorc;
+    ArrayAdapter<CharSequence> adapter;
+    Button btn1;
+    TextView tv1;
+    EditText et1;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        //Primer Spinner
+        spinnerPers = (Spinner) findViewById(R.id.spnPersonas);
+        // Crea un ArrayAdapter usando ela rrglo de string  y el spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.personas_numero, android.R.layout.simple_spinner_item);
+        // Especifica el layout a usar cuando la lista de selección aparezca
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Aplica el adaptador para el spinner
+        spinnerPers.setAdapter(adapter);
+        AdapterView.OnItemClickListener vpersona =spinnerPers.getOnItemClickListener();
+
+        btn1 = (Button) findViewById(R.id.btn1);
+        tv1 = (TextView) findViewById(R.id.tvResultado);
+        et1 = (EditText) findViewById(R.id.etMonto);
+
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //AdapterView.OnItemClickListener vpersona =spinnerPers.getOnItemClickListener();
+                //int vpersona = Integer.parseInt(spinnerPers.getOnItemClickListener().toString());
+                Double vpersona = Double.parseDouble(spinnerPers.getSelectedItem().toString());
+                //int int1 = Integer.parseInt(vpersona);
+                //AdapterView.OnItemClickListener vporcentaje =spinnerPorc.getOnItemClickListener();
+                Double vporcentaje = Double.parseDouble(spinnerPorc.getSelectedItem().toString());
+                //int vMonto = et1.getInputType();
+                Double vMonto = Double.parseDouble(et1.getText().toString());
+                /*El método getText() obtiene el dato escrito y con el método Strind()
+                se convierte a String para manipularlo como tal, finalmente
+                se muestra en el textView con el método setText()
+                 */
+                Double vCalculo = (vMonto / vpersona) * (1 + (vporcentaje / 100));
+                //Double vCalculo = (vMonto * (vporcentaje/100));
+                //int vCalculo = (vpersona);
+                tv1.setText("Resultado " + vCalculo);
+            }
+        });
+
+
+        //Segundo Spinner
+        spinnerPorc = (Spinner) findViewById(R.id.spnPorcentaje);
+        // Crea un ArrayAdapter usando ela rrglo de string  y el spinner layout
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+                R.array.porcentaje, android.R.layout.simple_spinner_item);
+        // Especifica el layout a usar cuando la lista de selección aparezca
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Aplica el adaptador para el spinner
+        spinnerPorc.setAdapter(adapter2);
+        AdapterView.OnItemClickListener vporcentaje =spinnerPorc.getOnItemClickListener();
+/*
+            spinnerPorc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapter, View v,
+            int position, long id) {
+                // On selecting a spinner item
+                    spinnerPorc = adapter.getItemAtPosition(position).toString();
+                // Showing selected spinner item
+                Toast.makeText(getApplicationContext(),
+                        "Selecciona el Porcenaje : " + spinnerPers, Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+            }
+            */
+        //adapter=ArrayAdapter.createFromResource(this,R.array.personas_numero,android.R.layout.simple_spinner_item);
+        //adapter.setDropDownViewResource(finishAndRemoveTask();.R.layout.support_simple_spinner_dropdown_item);
+        //spinner.setAdapter(adapter);
+        //spinner.setOnItemClickListener(new AdapterView.OnItemSelectedListener());
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Main Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://com.example.giisra.practicau2a1/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Main Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://com.example.giisra.practicau2a1/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
+    }
+}
